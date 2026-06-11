@@ -1,0 +1,4 @@
+dbt test runs all tests in the dbt project
+dbt test --select test_type:generic
+dbt test --select test_type:singular
+dbt test --select one_specific_model

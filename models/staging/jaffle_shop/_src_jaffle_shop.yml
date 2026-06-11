@@ -1,0 +1,25 @@
+sources:
+  - name: jaffle_shop # To run test -> dbt test --select source:jaffle_shop <- In terminal
+    description: Clone of a postgres database
+    database: raw  
+    schema: jaffle_shop
+    tables:
+      - name: customers
+        description: Raw customer data
+        columns:
+          - name: id # The field name needs to match what is in the source, not the model.
+            data_tests: 
+              - unique
+              - not_null
+      - name: orders
+        # config:
+        # freshness:
+        #   warn_after:
+        #     count: 24
+        #     period: hour
+        #   error_after:
+        #     count: 48
+        #     period: hour
+        # loaded_at_field: _etl_loaded_at
+
+      # In the event of testing freshness, note that freshness is not a test

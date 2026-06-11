@@ -1,0 +1,28 @@
+models:
+  - name: stg_jaffle_shop_customers
+    columns:
+      - name: customer_id
+        description: Primary key for customers table
+        data_tests: 
+          - unique
+          - not_null
+ 
+  - name: stg_jaffle_shop_orders
+    columns:
+      - name: order_id
+        data_tests:
+          - unique
+          - not_null
+      - name: status
+        description: '{{doc("order_status")}}' # Macro for documentation. Links the markdown file. Also the double quotes are to be different than the single quotes. 
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['placed', 'shipped', 'completed', 'returned', 'return_pending'] 
+      - name: customer_id 
+        data_tests:
+          - relationships:
+              arguments: 
+                to: ref("stg_jaffle_shop_customers") # No curly braces here per yml file not sql file. 
+                field: customer_id
+
